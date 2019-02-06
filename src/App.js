@@ -10,7 +10,30 @@ class App extends Component {
           <h1>Memory Game</h1> 
           <h2 id="subtitle">Match Cards to Win</h2>
         </header>
-        <MemoryCard />
+        <div>
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+        </div>
+        <div>
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+        </div>
+        <div>
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+        </div>
+        <div>
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+          <MemoryCard />
+        </div>
       </div>
     );
   }
