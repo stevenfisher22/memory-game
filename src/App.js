@@ -15,8 +15,9 @@ function shuffle(a) {
 }
 
 function generateDeck() {
-  var symbols = ["∆", "ß", "£", "§", "•", "$", "+", "ø"];
   var deck = [];
+  var symbols = ["∆", "ß", "£", "§", "•", "$", "+", "ø"];
+
   for (var i = 0; i < 16; i++) {
     deck.push({
       symbol: symbols[i%8],
@@ -37,12 +38,54 @@ class App extends Component {
     }
   }
 
+  pickCard(cardIndex) {
+    let newDeck = this.state.deck.map((card) => {
+      return {...card}
+    });
+    newDeck[cardIndex].isFlipped = true;
+
+    let newPickedCards = this.state.pickedCards.concat(cardIndex);
+
+    if(newPickedCards.length === 2) {
+      var card1Index = newPickedCards[0];
+      var card2Index = newPickedCards[1];
+      var card1 = newDeck[card1Index];
+      var card2 = newDeck[card2Index];
+      if (card1.symbol !== card2.symbol) {
+        setTimeout(() => {
+          this.unflipCards(card1Index, card2Index)
+        }, 1000);
+      }
+      newPickedCards = [];
+    }
+
+    this.setState({
+      deck: newDeck, 
+      pickedCards: newPickedCards
+    });
+  }
+
+  unflipCards (card1Index, card2Index) {
+    var newDeck = this.state.deck.map((card) => {
+      return {...card}
+    });
+
+    newDeck[card1Index].isFlipped = false;
+    newDeck[card2Index].isFlipped = false;
+
+    this.setState({
+      deck: newDeck
+    });
+
+  }
+
   render() {
     let cardsJSX = this.state.deck.map((card, index) => {
       return <MemoryCard
         symbol={card.symbol}
         isFlipped={card.isFlipped}
         key={index}
+        pickCard={this.pickCard.bind(this, index)}
         />
     });
 
